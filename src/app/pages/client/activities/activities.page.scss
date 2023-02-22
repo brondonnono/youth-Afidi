@@ -1,0 +1,14 @@
+ion-toolbar {
+    --background: var(--ion-color-secondary);
+    background: var(--ion-color-secondary);
+}
+
+ion-content {
+    --background: #f1f3f4;
+}
+
+ion-card-header {
+    padding-left: 0 !important;
+    padding-top: 0 !important;
+    padding-right: 0 !important;
+}

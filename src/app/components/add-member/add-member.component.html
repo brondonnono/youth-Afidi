@@ -1,0 +1,171 @@
+<form [formGroup]="memberForm" *ngIf="addMember">
+  <ion-card mode="ios" class="p-10">
+    <ion-list mode="ios">
+      <ion-list-header mode="ios">
+        <ion-label class="small" mode="ios">Informations personnelles</ion-label>
+      </ion-list-header>
+      <ion-item mode="ios">
+        <ion-icon mode="ios" name="person" mode="ios" slot="start" color="primary"></ion-icon>
+        <ion-input mode="ios" type="text" mode="ios" class="smaller" formControlName="name" required
+          placeholder="Noms et prénoms"></ion-input>
+      </ion-item>
+
+      <ion-item mode="ios" lines="full">
+        <ion-icon mode="ios" name="calendar" mode="ios" slot="start" color="primary"></ion-icon>
+        <ion-input mode="ios" type="date" placeholder="Date de naissance" class="smaller" formControlName="birthDate" required></ion-input>
+      </ion-item>
+
+      <ion-item mode="ios" lines="full">
+        <ion-label mode="ios" class="small regular">Scolarisé?</ion-label>
+        <ion-toggle mode="ios" slot="end" [checked]="isScholarized" (ionChange)="scholarToggleChanged()" [enableOnOffLabels]="true"
+          color="secondary">
+        </ion-toggle>
+      </ion-item>
+
+      <ion-item mode="ios" lines="full" *ngIf="isScholarized">
+        <ion-label mode="ios" position="stacked" class="small regular">Etablissement</ion-label>
+        <ion-input mode="ios" class="smaller" type="text" formControlName="schoolName" placeholder="Etablissement"></ion-input>
+      </ion-item>
+
+      <ion-item mode="ios" lines="full" *ngIf="isScholarized">
+        <ion-label mode="ios" position="stacked" class="small regular">Classe</ion-label>
+        <ion-input mode="ios" class="smaller" type="text" formControlName="classGrade" placeholder="Classe"></ion-input>
+      </ion-item>
+
+      <ion-item mode="ios" lines="full">
+        <ion-label mode="ios" class="x-small regular">Avez un téléphone?</ion-label>
+        <ion-toggle mode="ios" slot="end" [checked]="havePhoneNumber" (ionChange)="phoneToggleChanged()" [enableOnOffLabels]="true"
+          color="secondary">
+        </ion-toggle>
+      </ion-item>
+
+      <ion-item mode="ios" lines="full" *ngIf="havePhoneNumber" counter="true">
+        <ion-icon mode="ios" name="call" size="small" slot="start" color="primary"></ion-icon>
+        <ion-input class="x-small" mode="ios" type="tel" maxlength="9" formControlName="tel"
+          placeholder="(Whatsapp de préférence)">
+        </ion-input>
+      </ion-item>
+
+      <ion-item mode="ios" lines="full">
+        <ion-label mode="ios" class="smaller regular" position="stacked">Ville</ion-label>
+        <ion-select mode="ios" class="smaller" interface="action-sheet" placeholder="Ville" formControlName="city"
+          (ionChange)="cityChanged($event)">
+          <ion-select-option mode="ios" [value]="city.code" *ngFor="let city of cities">
+            {{city.name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item mode="ios" lines="full" *ngIf="selectedCity!==''">
+        <ion-label mode="ios" class="smalle regular" position="stacked">Quartier</ion-label>
+        <ion-select mode="ios" interface="action-sheet" placeholder="Quartier" class="smaller" formControlName="quater"
+          (ionChange)="quaterChanged($event)">
+          <ion-select-option mode="ios" [value]="quater" *ngFor="let quater of quaters">
+            {{quater}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+
+    <ion-list mode="ios">
+      <ion-list-header mode="ios">
+        <ion-label mode="ios" class="small">Informations du tuteur</ion-label>
+      </ion-list-header>
+      <ion-item mode="ios" lines="full">
+        <ion-icon mode="ios" name="person" slot="start" color="primary"></ion-icon>
+        <ion-input mode="ios" class="smaller" type="text" required formControlName="tutorName"
+          placeholder="Noms et prénoms"></ion-input>
+      </ion-item>
+
+      <ion-item mode="ios" lines="full">
+        <ion-label mode="ios" class="smaller regular" position="stacked">Profession</ion-label>
+        <ion-input mode="ios" type="text" class="smaller" formControlName="profession" required
+          placeholder="Profession"></ion-input>
+      </ion-item>
+
+      <ion-item mode="ios" lines="full">
+        <ion-label class="x-small regular" mode="ios">A t-il un téléphone?</ion-label>
+        <ion-toggle slot="end" mode="ios" [checked]="parentHavePhoneNumber" (ionChange)="parentPhoneToggleChanged()"
+          [enableOnOffLabels]="true" color="secondary">
+        </ion-toggle>
+      </ion-item>
+
+      <ion-item mode="ios" lines="full" *ngIf="parentHavePhoneNumber" counter="true">
+        <ion-icon mode="ios" name="call" size="small" slot="start" color="primary"></ion-icon>
+        <ion-input mode="ios" class="x-small" type="tel" maxlength="9" formControlName="tutorTel"
+          placeholder="(Whatsapp de préférence)">
+        </ion-input>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+  <br>
+  <ion-button mode="ios" expand="block" shape="round" color="secondary" [disabled]="!memberForm.valid" (click)="saveMemberData()">
+    <ion-icon mode="ios" name="save" slot="start"></ion-icon>
+    <ion-label mode="ios">Enregistrer</ion-label>
+  </ion-button>
+</form>
+
+<form [formGroup]="visitorForm" *ngIf="!addMember">
+  <ion-card mode="ios" class="p-10">
+    <ion-list mode="ios">
+      <ion-list-header mode="ios">
+        <ion-label mode="ios" class="small">Informations personnelles</ion-label>
+      </ion-list-header>
+      <ion-item mode="ios" lines="full">
+        <ion-icon mode="ios" name="person" slot="start" color="primary"></ion-icon>
+        <ion-input mode="ios" type="text" class="smaller" formControlName="name" required placeholder="Nom(s)"></ion-input>
+      </ion-item>
+
+      <ion-item mode="ios" lines="full">
+        <ion-icon mode="ios" name="person" slot="start" color="primary"></ion-icon>
+        <ion-input mode="ios" type="text" class="smaller" formControlName="surname" required placeholder="Prénom(s)"></ion-input>
+      </ion-item>
+
+      <ion-item mode="ios" lines="full">
+        <ion-label class="x-small regular" mode="ios">Avez un téléphone?</ion-label>
+        <ion-toggle slot="end" mode="ios" [checked]="havePhoneNumber" formControlName="havePhone"
+          (ionChange)="phoneToggleChanged()" [enableOnOffLabels]="true" color="secondary">
+        </ion-toggle>
+      </ion-item>
+
+      <ion-item mode="ios" lines="full" *ngIf="havePhoneNumber" counter="true">
+        <ion-icon mode="ios" name="call" slot="start" color="primary" size="small"></ion-icon>
+        <ion-input mode="ios" class="x-small" type="tel" maxlength="9" formControlName="tel"
+          placeholder="(Whatsapp de préférence)">
+        </ion-input>
+      </ion-item>
+
+      <ion-item mode="ios" lines="full">
+        <ion-label mode="ios" position="stacked" class="smaller regular">Ville</ion-label>
+        <ion-select mode="ios" class="smaller" interface="action-sheet" placeholder="Ville" formControlName="city"
+          (ionChange)="cityChanged($event)">
+          <ion-select-option mode="ios" [value]="city.code" *ngFor="let city of cities">
+            {{city.name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item mode="ios" lines="full" *ngIf="selectedCity!==''">
+        <ion-label mode="ios" class="smaller regular" position="stacked">Quartier</ion-label>
+        <ion-select mode="ios" class="smaller" interface="action-sheet" placeholder="Quartier" formControlName="quater"
+          (ionChange)="quaterChanged($event)">
+          <ion-select-option mode="ios" [value]="quater" *ngFor="let quater of quaters">
+            {{quater}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item mode="ios" lines="full">
+        <ion-label mode="ios" class="smaller regular" position="stacked">Profession</ion-label>
+        <ion-input mode="ios" type="text" class="smaller" formControlName="profession" required
+          placeholder="Profession"></ion-input>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+  <br>
+  <ion-button mode="ios" expand="block" shape="round" color="secondary" type="submit" (click)="saveVisitorData()">
+    <ion-icon mode="ios" name="save" slot="start"></ion-icon>
+    <ion-label>Enregistrer</ion-label>
+  </ion-button>
+</form>

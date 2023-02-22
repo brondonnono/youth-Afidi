@@ -1,0 +1,36 @@
+<ion-content>
+  <div id="header">
+    <div id="logo">
+      <img src="assets/img/logo-circle.png" alt="Afidi">
+    </div>
+  </div>
+  <ion-card class="ion-padding container-card" mode="ios">
+    <ion-card-content mode="ios">
+      <h1>{{translate.welcome.title}}</h1>
+      <p>{{translate.welcome.description}}</p>
+
+      <ion-button mode="ios" expand="block" routerLink="/login" class="ion-margin-bottom">{{translate.welcome.toLoginBtn}}</ion-button>
+      <ion-button mode="ios" color="orange" expand="block" routerLink="/register" fill="outline">{{translate.welcome.toSignUpBtn}}</ion-button>
+
+      <div class="line-text">
+        <span class="lines"></span>
+        <span class="text">{{translate.welcome.otherOptionTitle}}</span>
+      </div>
+
+      <div class="socials">
+        <ion-button class="btn-fb">
+          <ion-icon name="logo-facebook"></ion-icon>
+        </ion-button>
+        <ion-button class="btn-tw">
+          <ion-icon name="logo-twitter"></ion-icon>
+        </ion-button>
+        <ion-button class="btn-go">
+          <ion-icon name="logo-google"></ion-icon>
+        </ion-button>
+        <ion-button class="btn-ph">
+          <ion-icon name="call-outline"></ion-icon>
+        </ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

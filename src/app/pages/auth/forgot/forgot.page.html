@@ -1,0 +1,50 @@
+<ion-content>
+  <div id="header">
+    <div id="app-bar">
+      <ion-icon mode="ios" name="chevron-back" routerLink="/welcome"></ion-icon>
+      <div id="logo">
+        <img src="https://firebasestorage.googleapis.com/v0/b/afidi-follow-child.appspot.com/o/img%2Flogo-circle.png?alt=media&token=6cbe8be3-de7e-47d2-950b-35858b290378" alt="Forgot Logo" />
+      </div>
+      <div></div>
+    </div>
+    <h1>{{translate.forgot.title}}</h1>
+    <p>{{translate.forgot.description}}</p>
+  </div>
+
+  <div class="wrapper">
+    <ion-card mode="ios" class="form-wrapper">
+      <ion-card-content mode="ios">
+        <form [formGroup]="forgotForm" (ngSubmit)="forgot()">
+          <ion-item mode="ios" color="light">
+            <ion-icon mode="ios" name="mail" color="primary"></ion-icon>
+            <ion-input
+            color="dark"
+              mode="ios"
+              type="email"
+              [placeholder]="translate.login.email"
+              formControlName="forgotEmail"
+            ></ion-input>
+          </ion-item>
+          <!-- Email error message -->
+          <div *ngFor="let error of errorMessages.email" class="pb-1">
+            <ng-container
+              *ngIf="error.lang === 'fr' && 
+              forgotEmail!.hasError(error.type) && 
+              (forgotEmail!.dirty || forgotEmail!.touched)"
+            >
+              <small class="error-message"> {{error.message}} </small>
+            </ng-container>
+          </div>
+          <ion-button
+            mode="ios"
+            expand="block"
+            type="submit"
+            [disabled]="!forgotForm.valid"
+          >
+            {{translate.forgot.sendBtn}}
+          </ion-button>
+        </form>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

@@ -1,0 +1,28 @@
+ion-content {
+    --background: url(../../../../assets/img/original-3.png) center #c8c8c8;
+}
+
+.firstItem {
+    border-radius: 25px !important;
+    box-shadow: rgb(0 0 0 / 12%) 0px 4px 16px;
+}
+
+ion-card-header {
+    padding-left: 0.3rem !important;
+    padding-top: 0.3rem !important;
+    padding-bottom: 0.6rem !important;
+    padding-right: 0.3rem !important;
+}
+
+ion-card-content {
+    padding-left: 0.3rem !important;
+    padding-right: 0.3rem !important;
+    padding-bottom: 0.3rem !important;
+    padding-top: 0.3rem !important;
+    background: var(--ion-color-primary) !important;
+    
+    ion-card-subtitle {
+        color: white !important;
+        font-family: codePro-ExtraLight;
+    }
+}

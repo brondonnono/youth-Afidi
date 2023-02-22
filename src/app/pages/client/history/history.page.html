@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{translate.history.title}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button color="light" autoHide="false"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="bg-smallGrey">
+  <div *ngIf="data.length !== 0">
+    <ion-list *ngFor="let elem of data">
+      <ion-list-header class="list-header-color pb-10 bold">
+        {{elem.adherent.name}}
+      </ion-list-header>
+      <ion-item *ngFor="let history of elem.histories">
+        <ion-label class="elem-title x-small">
+          {{toLocalDate(history.day)}}
+        </ion-label>
+        <ion-label slot="end" class="elem-title">
+          <h4>
+            {{translate.history.comingHour}}: {{history.arrivedHour}}
+          </h4>
+          <h4>
+            {{translate.history.goingHour}}: {{history.leavingHour}}
+          </h4>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <div class="bg-smallGrey center ion-padding" *ngIf="data.length === 0">
+    <ion-icon color="light" class="icon_full" slot="icon-only" name="library"></ion-icon>
+    <h5 class="light">{{translate.history.notComing}} </h5>
+  </div>
+</ion-content>

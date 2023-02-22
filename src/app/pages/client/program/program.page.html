@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{translate.program.title}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button color="light" autoHide="false"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="bg-smallGrey">
+  <ion-list>
+    <ion-list-header class="list-header-color pb-10 boldItalic">
+      {{translate.program.today}}
+    </ion-list-header>
+    <ion-item *ngFor="let activity of getTodayActivities()">
+      <h6 class="elem-title">{{activity.shortDescription}}</h6>
+      <ion-label slot="end" class="gray elem-title">
+        <h6 class="smaller">{{activity.beginTime}} - {{activity.endTime}}</h6>
+      </ion-label>
+      <ion-icon class="gray" slot="end" size="small" name="chevron-forward"></ion-icon>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-list-header class="list-header-color pb-10 boldItalic">
+      {{translate.program.tomorrow}}
+    </ion-list-header>
+    <ion-item *ngFor="let activity of getTomorrowActivities()">
+      <h6 class="elem-title">{{activity.shortDescription}}</h6>
+      <ion-label slot="end" class="gray elem-title smaller">
+        <h6 class="smaller">{{activity.beginTime}} - {{activity.endTime}}</h6>
+      </ion-label>
+      <ion-icon class="gray" size="small" slot="end" name="chevron-forward"></ion-icon>
+    </ion-item>
+  </ion-list>
+</ion-content>
+

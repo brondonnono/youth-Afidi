@@ -1,0 +1,82 @@
+<ion-header mode="ios">
+  <ion-toolbar mode="ios" color="secondary">
+    <ion-title>{{translate.dashboard.title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <ion-item lines="none" class="firstItem" mode="ios">
+          <ion-label class="regular small" mode="ios">{{translate.dashboard.language}}</ion-label>
+          <ion-select interface="action-sheet" mode="ios" class="x-small" [value]="lang" [interfaceOptions]="selectOptions" (ionChange)="changeLanguage($event)">
+            <ion-select-option value="fr">{{translate.signup.french}}</ion-select-option>
+            <ion-select-option value="en">{{translate.signup.english}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6">
+        <ion-card mode="ios">
+          <ion-card-header mode="ios" routerLink="/manageAdherent">
+            <ion-img src="assets/img/gestion_adherent.png" [alt]="translate.dashboard.manageMember"></ion-img>
+          </ion-card-header>
+          <ion-card-content mode="ios">
+            <ion-card-subtitle class="small-ft-05 center">{{translate.dashboard.manageMember}}</ion-card-subtitle>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6">
+        <ion-card mode="ios" routerLink="/manageAdmin">
+          <ion-card-header mode="ios">
+            <ion-img src="assets/img/gestion_admin.png" [alt]="translate.dashboard.manageAdmin"></ion-img>
+          </ion-card-header>
+          <ion-card-content mode="ios">
+            <ion-card-subtitle class="small-ft-05 center">{{translate.dashboard.manageAdmin}}</ion-card-subtitle>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6">
+        <ion-card mode="ios" routerLink="/profileAdmin">
+          <ion-card-header mode="ios" class="center">
+            <!-- <ion-icon size="large" name="person"></ion-icon> -->
+            <ion-img src="assets/img/noavatar.png" [alt]="translate.dashboard.editProfil"></ion-img>
+          </ion-card-header>
+          <ion-card-content mode="ios">
+            <ion-card-subtitle class="small-ft-05 center">{{translate.dashboard.editProfil}}</ion-card-subtitle>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6">
+        <ion-card mode="ios" routerLink="/manageUsers">
+          <ion-card-header mode="ios">
+            <ion-img src="assets/img/group.png" [alt]="translate.dashboard.manageUser"></ion-img>
+          </ion-card-header>
+          <ion-card-content mode="ios">
+            <ion-card-subtitle class="small-ft-05 center">{{translate.dashboard.manageUser}}</ion-card-subtitle>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6">
+        <ion-card mode="ios" routerLink="/manageActivities">
+          <ion-card-header mode="ios">
+            <ion-img src="assets/img/draw2.png" [alt]="translate.dashboard.manageActivities"></ion-img>
+          </ion-card-header>
+          <ion-card-content mode="ios">
+            <ion-card-subtitle class="small-ft-05 center">{{translate.dashboard.manageActivities}}</ion-card-subtitle>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6">
+        <ion-card mode="ios">
+          <ion-card-header mode="ios">
+            <ion-img src="assets/images/logo-pdf.png" [alt]="translate.dashboard.exportData"></ion-img>
+          </ion-card-header>
+          <ion-card-content mode="ios">
+            <ion-card-subtitle class="small-ft-05 center">{{translate.dashboard.exportData}}</ion-card-subtitle>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

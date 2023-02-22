@@ -1,0 +1,244 @@
+<ion-content>
+  <div id="header">
+    <div id="app-bar">
+      <ion-icon mode="ios" name="chevron-back" routerLink="/welcome"></ion-icon>
+      <div id="logo">
+        <img src="https://firebasestorage.googleapis.com/v0/b/afidi-follow-child.appspot.com/o/img%2Flogo-circle.png?alt=media&token=6cbe8be3-de7e-47d2-950b-35858b290378" alt="Afidi" />
+      </div>
+      <div></div>
+    </div>
+
+    <h1>{{translate.signup.title}}</h1>
+    <p>{{translate.signup.description}}</p>
+  </div>
+
+  <div class="wrapper">
+    <ion-card mode="ios" class="form-wrapper">
+      <ion-card-content mode="ios">
+        <form [formGroup]="registerForm" (ngSubmit)="register()">
+          <ion-item mode="ios" color="light">
+            <ion-icon
+              mode="ios"
+              name="person"
+              size="small"
+              color="primary"
+            ></ion-icon>
+            <ion-input
+            color="dark"
+              mode="ios"
+              type="text"
+              formControlName="registerName"
+              [placeholder]="translate.signup.name"
+            ></ion-input>
+          </ion-item>
+          <!-- Name error message -->
+          <div *ngFor="let error of errorMessages.name" class="pb-1">
+            <ng-container
+              *ngIf="error.lang === 'fr' && 
+              registerName!.hasError(error.type) && 
+              (registerName!.dirty || registerName!.touched)"
+            >
+              <small class="error-message"> {{error.message}} </small>
+            </ng-container>
+          </div>
+          <ion-item mode="ios" color="light">
+            <ion-icon
+              mode="ios"
+              name="person"
+              size="small"
+              color="primary"
+            ></ion-icon>
+            <ion-input
+            color="dark"
+              mode="ios"
+              type="text"
+              formControlName="registerSurname"
+              [placeholder]="translate.signup.surname"
+            ></ion-input>
+          </ion-item>
+          <!-- Surname error message -->
+          <div *ngFor="let error of errorMessages.surname" class="pb-1">
+            <ng-container
+              *ngIf="error.lang === 'fr' && 
+              registerSurname!.hasError(error.type) && 
+              (registerSurname!.dirty || registerSurname!.touched)"
+            >
+              <small class="error-message"> {{error.message}} </small>
+            </ng-container>
+          </div>
+          <ion-item mode="ios" counter="true" lines="full" color="light">
+            <ion-icon
+              mode="ios"
+              name="call"
+              size="small"
+              color="primary"
+            ></ion-icon>
+            <ion-input
+            color="dark"
+              mode="ios"
+              type="tel"
+              maxlength="9"
+              minlength="9"
+              [placeholder]="translate.signup.tel"
+              formControlName="registerTel"
+            ></ion-input>
+          </ion-item>
+          <!-- Tel error message -->
+          <div *ngFor="let error of errorMessages.tel" class="pb-1">
+            <ng-container
+              *ngIf="error.lang === 'fr' && 
+              registerTel!.hasError(error.type) && 
+              (registerTel!.dirty || registerTel!.touched)"
+            >
+              <small class="error-message"> {{error.message}} </small>
+            </ng-container>
+          </div>
+          <ion-item mode="ios" color="light">
+            <ion-label position="floating"
+              >{{translate.dashboard.language}}</ion-label
+            >
+            <ion-select
+            color="dark"
+              value="fr"
+              slot="end"
+              formControlName="registerLang"
+              interface="action-sheet"
+              (ionChange)="changeLanguage($event)"
+            >
+              <ion-select-option value="fr" color="dark"
+                >{{translate.signup.french}}</ion-select-option
+              >
+              <ion-select-option value="en"
+              color="dark"
+                >{{translate.signup.english}}</ion-select-option
+              >
+            </ion-select>
+          </ion-item>
+          <ion-item mode="ios" color="light">
+            <ion-icon
+              mode="ios"
+              name="mail"
+              size="small"
+              color="primary"
+            ></ion-icon>
+            <ion-input
+            color="dark"
+              mode="ios"
+              type="text"
+              [placeholder]="translate.login.email"
+              formControlName="registerEmail"
+            ></ion-input>
+          </ion-item>
+          <!-- Email error message -->
+          <div *ngFor="let error of errorMessages.email" class="pb-1">
+            <ng-container
+              *ngIf="error.lang === 'fr' && 
+              registerEmail!.hasError(error.type) && 
+              (registerEmail!.dirty || registerEmail!.touched)"
+            >
+              <small class="error-message"> {{error.message}} </small>
+            </ng-container>
+          </div>
+          <ion-item mode="ios" color="light">
+            <ion-icon
+              mode="ios"
+              name="lock-closed"
+              size="small"
+              color="primary"
+            ></ion-icon>
+            <ion-input
+            color="dark"
+              mode="ios"
+              type="{{ getPasswordType() }}"
+              [placeholder]="translate.login.pswd"
+              formControlName="registerPassword"
+            ></ion-input>
+            <ion-icon
+              slot="end"
+              color="primary"
+              size="small"
+              name="eye"
+              *ngIf="!isVisible"
+              (click)="changePasswordVisibility()"
+            ></ion-icon>
+            <ion-icon
+              slot="end"
+              color="primary"
+              size="small"
+              name="eye-off"
+              *ngIf="isVisible"
+              (click)="changePasswordVisibility()"
+            ></ion-icon>
+          </ion-item>
+          <!-- Password error message -->
+          <div *ngFor="let error of errorMessages.password" class="pb-1">
+            <ng-container
+              *ngIf="error.lang === 'fr' && 
+              registerPassword!.hasError(error.type) && 
+              (registerPassword!.dirty || registerPassword!.touched)"
+            >
+              <small class="error-message"> {{error.message}} </small>
+            </ng-container>
+          </div>
+          <ion-item mode="ios" color="light">
+            <ion-icon
+              mode="ios"
+              name="lock-closed"
+              size="small"
+              color="primary"
+            ></ion-icon>
+            <ion-input
+            color="dark"
+              mode="ios"
+              type="{{ getPasswordType() }}"
+              [placeholder]="translate.signup.confirmPswd"
+              formControlName="registerCpassword"
+            ></ion-input>
+          </ion-item>
+          <!-- Cpassword error message -->
+          <div *ngFor="let error of errorMessages.Cpassword" class="pb-1">
+            <ng-container
+              *ngIf="error.lang === 'fr' && 
+              registerCpassword!.hasError(error.type) && 
+              (registerCpassword!.dirty || registerCpassword!.touched)"
+            >
+              <small class="error-message"> {{error.message}} </small>
+            </ng-container>
+          </div>
+          <ion-button
+            mode="ios"
+            expand="block"
+            type="submit"
+            [disabled]="!registerForm.valid"
+          >
+            {{translate.signup.title}}
+          </ion-button>
+        </form>
+      </ion-card-content>
+    </ion-card>
+
+    <div class="line-text">
+      <span class="lines"></span>
+      <span class="text">{{translate.welcome.otherOptionTitle}}</span>
+    </div>
+
+    <ion-card class="social-wrapper">
+      <ion-card-content>
+        <div class="socials">
+          <ion-button class="btn-fb">
+            <ion-icon name="logo-facebook"></ion-icon>
+          </ion-button>
+          <ion-button class="btn-tw">
+            <ion-icon name="logo-twitter"></ion-icon>
+          </ion-button>
+          <ion-button class="btn-go">
+            <ion-icon name="logo-google"></ion-icon>
+          </ion-button>
+          <ion-button class="btn-ph">
+            <ion-icon name="call-outline"></ion-icon>
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

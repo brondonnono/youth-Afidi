@@ -1,0 +1,126 @@
+<ion-header [style.visibility]="content_visibility">
+  <ion-toolbar color="secondary" class="text-center" mode="ios">
+    <ion-buttons *ngIf="menuChoice !== 'home'">
+      <ion-button (click)="subMenuAction('home')">
+        <ion-icon slot="icon-only" name="chevron-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="x-small"> {{translate.identification.title}} </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="menuChoice === 'scan'" class="ion-padding" [style.visibility]="content_visibility">
+
+  <ion-segment [(ngModel)]="elementType">
+    <ion-segment-button value="canvas">
+      <ion-label>Canvas</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="img">
+      <ion-label>Image</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="url">
+      <ion-label>Url</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <ion-card class="centered" *ngIf="myAngularxQrCode">
+    <qrcode 
+      [qrdata]="myAngularxQrCode"
+      [elementType]="elementType"
+      [width]="250" 
+      [errorCorrectionLevel]="'M'" 
+      [version]="7"
+    >
+    </qrcode>
+  </ion-card>
+
+  <!-- <ion-item lines="none">
+    <ion-label><b>Texte à encoder:</b></ion-label>
+    <ion-input [(ngModel)]="textToCode" placeholder="Entrez votre URL"></ion-input>
+  </ion-item>
+
+  <ion-button color="tertiary" expand="block" (click)="createQRCode()" *ngIf="!showCamera">
+    <ion-icon slot="start" name="create"></ion-icon>
+    Créer un QR Code
+  </ion-button>
+  
+
+  <a [href]="qrCodeDownloadLink" download="qrcode" *ngIf="qrCodeDownloadLink">
+    <ion-button color="success" expand="block"></ion-button>
+  </a> -->
+
+  <ion-button
+  mode="ios"
+  expand="block"
+  (click)="startScan()">
+  <ion-icon mode="ios" name="qr-scanner"></ion-icon>
+    {{translate.scan.btn}}
+  </ion-button>
+
+  <ion-button
+  mode="ios"
+  *ngIf="scannedResult"
+  expand="block"
+  color="success"
+  (click)="nextStep()">
+    {{translate.scan.next}}
+    <ion-icon mode="ios" slot="end" name="chevron-forward"></ion-icon>
+  </ion-button>
+
+  <ion-item mode="ios" *ngIf="scannedResult">
+      <ion-label>resultat: {{scannedResult}}</ion-label>
+  </ion-item>
+</ion-content>
+
+<ion-content *ngIf="menuChoice === 'home'">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6">
+        <ion-card mode="ios" (click)="subMenuAction('newMember')">
+          <ion-card-header mode="ios">
+            <ion-card-title mode="ios">
+              <ion-img src="assets/img/new.png"></ion-img>
+            </ion-card-title>
+            <ion-card-subtitle mode="ios" class="center">
+              <br>
+              {{translate.identification.addMember}}
+            </ion-card-subtitle>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6">
+        <ion-card mode="ios" (click)="subMenuAction('AddVisitor')">
+          <ion-card-header mode="ios">
+            <ion-card-title mode="ios">
+              <ion-img src="assets/img/34.png"></ion-img>
+            </ion-card-title>
+            <ion-card-subtitle mode="ios" class="center">
+              <br>
+              {{translate.identification.addVisitor}}
+            </ion-card-subtitle>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+      <ion-col size="12">
+        <ion-card mode="ios" (click)="subMenuAction('scan')">
+          <ion-card-header mode="ios">
+            <ion-card-title mode="ios">
+              <ion-img src="assets/img/tutorials/6.png"></ion-img>
+            </ion-card-title>
+            <ion-card-subtitle mode="ios" class="center">
+              <br>
+              {{translate.identification.markPresence}}
+            </ion-card-subtitle>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-content *ngIf="menuChoice ==='newMember'">
+  <app-add-member *ngIf="menuChoice === 'newMember'" [addMember]="true"></app-add-member>
+</ion-content>
+
+<ion-content *ngIf="menuChoice ==='AddVisitor'">
+  <app-add-member *ngIf="menuChoice === 'AddVisitor'" [addMember]="false"></app-add-member>
+</ion-content> 

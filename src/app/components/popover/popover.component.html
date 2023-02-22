@@ -1,0 +1,41 @@
+<div class="ion-padding flex-row space-between" *ngIf="type === 'about'">
+  <ion-label mode="ios">
+    <ion-icon slot="icon-only" name="at-circle" mode="ios" size="large" color="success"></ion-icon>
+  </ion-label>
+  <ion-label mode="ios">
+    <ion-icon slot="icon-only" name="share-social" mode="ios" size="large" color="tertiary"></ion-icon>
+  </ion-label>
+  <ion-label mode="ios">
+    <ion-icon slot="icon-only" name="help-buoy" mode="ios" size="large" color="secondary"></ion-icon>
+  </ion-label>
+  <ion-label mode="ios">
+    <ion-icon slot="icon-only" name="trophy" mode="ios" size="large" color="warning"></ion-icon>
+  </ion-label>
+</div>
+
+<div class="ion-padding flex-row space-between" *ngIf="type === 'adminManagement' && id!==''">
+  <ion-label mode="ios">
+    <ion-icon slot="icon-only" name="eye" mode="ios" size="large" color="success"></ion-icon>
+  </ion-label>
+  <ion-label mode="ios">
+    <ion-icon slot="icon-only" name="reader" mode="ios" size="large" color="secondary"></ion-icon>
+  </ion-label>
+  <ion-label mode="ios">
+    <ion-icon slot="icon-only" name="options" mode="ios" size="large" color="tertiary"></ion-icon>
+  </ion-label>
+  <ion-label mode="ios">
+    <ion-icon slot="icon-only" name="trash" mode="ios" size="large" color="danger"></ion-icon>
+  </ion-label>
+</div>
+
+<div class="ion-padding flex-row space-between" *ngIf="type === 'memberManagement' && id!==''">
+  <ion-label mode="ios">
+    <ion-icon slot="icon-only" name="eye" mode="ios" size="large" color="success"></ion-icon>
+  </ion-label>
+  <ion-label mode="ios">
+    <ion-icon slot="icon-only" name="reader" mode="ios" size="large" color="secondary"></ion-icon>
+  </ion-label>
+  <ion-label mode="ios">
+    <ion-icon slot="icon-only" name="trash" mode="ios" size="large" color="danger"></ion-icon>
+  </ion-label>
+</div>

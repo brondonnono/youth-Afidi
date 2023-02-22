@@ -1,0 +1,192 @@
+<ion-header>
+  <ion-toolbar mode="ios" color="secondary">
+    <ion-buttons mode="ios" slot="start">
+      <ion-button mode="ios" slot="start">
+        <ion-back-button mode="ios"></ion-back-button>
+      </ion-button>
+    </ion-buttons>
+    <ion-title mode="ios">{{translate.dashboard.manageActivities}}</ion-title>
+    <ion-buttons slot="end" mode="ios">
+      <ion-button mode="ios" color="light" (click)="logout()">
+        <ion-icon mode="ios" slot="icon-only" name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-card
+      mode="ios"
+      *ngFor="let activity of activities">
+      <ion-item mode="ios" lines="none" class="py-2">
+        <ion-thumbnail slot="start">
+          <img src="assets/img/noavatar.png" alt="avatar" />
+        </ion-thumbnail>
+        <div>
+          <ion-label mode="ios" class="medium">{{activity.title}}</ion-label>
+          <ion-label mode="ios" class="grey italic">
+            Activité
+          </ion-label>
+          <ion-fab slot="fixed" vertical="top" horizontal="end">
+            <ion-fab-button size="small" color="primary">
+              <ion-icon name="chevron-back-circle"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-list side="start">
+              <ion-fab-button
+                mode="ios"
+                (click)="deleteActivity(activity.getActivityId)"
+                color="danger"
+                size="small"
+              >
+                <ion-icon name="trash" mode="ios"></ion-icon>
+              </ion-fab-button>
+              <ion-fab-button
+                (click)="showDetails(activity.getActivityId)"
+                color="success"
+              >
+                <ion-icon name="eye"></ion-icon>
+              </ion-fab-button>
+            </ion-fab-list>
+          </ion-fab>
+        </div>
+      </ion-item>
+    </ion-card>
+  </ion-list>
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="showAddModal()" color="secondary">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-modal mode="ios" [isOpen]="isOpen">
+    <ng-template>
+      <ion-header mode="ios">
+        <ion-toolbar mode="ios" color="primary">
+          <ion-title>{{translate.about.detail}}</ion-title>
+          <ion-buttons slot="end">
+            <ion-button mode="ios" (click)="closeModal()">
+              <ion-icon
+                name="close-circle"
+                slot="icon-only"
+                mode="ios"
+              ></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <ion-card-title mode="ios" class="center">
+          {{currentActivity.title}}
+        </ion-card-title>
+        <p class="justify">
+          {{currentActivity.description}}
+        </p>
+        <h4 class="center">
+          {{currentActivity.day}}
+        </h4>
+        <ion-card-subtitle mode="ios" class="center">{{currentActivity.startTime}} - {{currentActivity.endTime}} </ion-card-subtitle>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+  <ion-modal mode="ios" [isOpen]="isAdding">
+    <ng-template>
+      <ion-header mode="ios">
+        <ion-toolbar mode="ios" color="primary">
+          <ion-title>{{translate.activities.addTitle}}</ion-title>
+          <ion-buttons slot="end">
+            <ion-button mode="ios" (click)="closeModal()">
+              <ion-icon
+                name="close-circle"
+                slot="icon-only"
+                mode="ios"
+              ></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <form [formGroup]="activityForm" (ngSubmit)="createActivity()">
+          <ion-item lines="full" class="pb-5" mode="ios">
+            <ion-label position="floating" mode="ios">
+              {{translate.activities.title}}
+            </ion-label>
+            <ion-icon slot="start" name="code-working" mode="ios"></ion-icon>
+            <ion-input
+              type="text"
+              formControlName="activityTitle"
+              required
+            ></ion-input>
+          </ion-item>
+          <ion-item lines="full" class="pb-5" mode="ios">
+            <ion-label position="floating" mode="ios">
+              {{translate.activities.description}}
+            </ion-label>
+            <ion-icon slot="start" name="text" mode="ios"></ion-icon>
+            <ion-textarea
+              type="text"
+              formControlName="activityDescription"
+              required
+            ></ion-textarea>
+          </ion-item>
+          <ion-item mode="ios" lines="full" class="pb-10">
+            <ion-datetime
+              mode="ios"
+              size="small"
+              firstDayOfWeek="1"
+              [min]="minDate"
+              presentation="date"
+              formControlName="activityDate"
+              locale="fr-FR"
+              required
+            >
+              <span slot="title">{{translate.activities.date}}</span>
+            </ion-datetime>
+          </ion-item>
+          <ion-item lines="full">
+            <ion-label>{{translate.activities.startHour}}</ion-label>
+          </ion-item>
+          <ion-datetime
+            mode="ios"
+            size="small"
+            [min]="minDate"
+            presentation="time"
+            formControlName="activityStartHour"
+            locale="fr-FR"
+            required
+          >
+          </ion-datetime>
+          <ion-item lines="full">
+            <ion-label>{{translate.activities.endHour}}</ion-label>
+          </ion-item>
+          <ion-datetime
+            class="pb-5"
+            mode="ios"
+            size="small"
+            [min]="minDate"
+            presentation="time"
+            formControlName="activityEndHour"
+            locale="fr-FR"
+            required
+          >
+          </ion-datetime>
+          <ion-button
+            mode="ios"
+            class="action-button"
+            [disabled]="!activityForm.valid"
+            (click)="createActivity()"
+            color="success"
+            expand="block"
+          >
+            <ion-icon
+              name="save"
+              slot="start"
+              color="light"
+              mode="ios"
+            ></ion-icon>
+            <ion-label mode="ios" color="light">Enregistrer</ion-label>
+          </ion-button>
+        </form>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-toolbar mode="ios" color="secondary">
+    <ion-buttons mode="ios" slot="start">
+      <ion-button mode="ios" slot="start">
+        <ion-back-button mode="ios"></ion-back-button>
+      </ion-button>
+    </ion-buttons>
+    <ion-title mode="ios">{{translate.dashboard.manageMember}}</ion-title>
+    <ion-buttons slot="end" mode="ios">
+      <ion-button mode="ios" color="light" (click)="logout()">
+        <ion-icon mode="ios" slot="icon-only" name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-card
+    mode="ios"
+    *ngFor="let elem of [{i: 1, hidden: false},{i: 2, hidden: false},{i: 3, hidden: false},{i: 4, hidden: false},{i: 5, hidden: false},{i: 6, hidden: false},{i: 7, hidden: false},{i: 8, hidden: false},{i: 9, hidden: false},{i: 10, hidden: false}]"
+    [hidden]="elem.hidden"
+  >
+    <ion-item mode="ios" lines="none" class="py-2">
+      <ion-thumbnail slot="start">
+        <img src="assets/img/noavatar.png" alt="avatar" />
+      </ion-thumbnail>
+      <div>
+        <ion-label mode="ios" class="medium">Sebastien</ion-label>
+        <ion-label mode="ios" class="grey italic"
+          >Membre {{elem.i}}</ion-label
+        >
+        <ion-fab slot="fixed" vertical="top" horizontal="end">
+          <ion-fab-button size="small" color="primary">
+            <ion-icon name="chevron-back-circle"></ion-icon>
+          </ion-fab-button>
+          <ion-fab-list side="start">
+            <ion-fab-button mode="ios" (click)="delete(elem)" color="danger" size="small">
+              <ion-icon name="trash" mode="ios"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button
+              (click)="showDetails(elem.i.toString())"
+              color="success"
+            >
+              <ion-icon name="eye"></ion-icon>
+            </ion-fab-button>
+          </ion-fab-list>
+        </ion-fab>
+      </div>
+    </ion-item>
+  </ion-card>
+  </ion-list>
+  <ion-modal mode="ios" [isOpen]="isOpen">
+    <ng-template>
+      <ion-header mode="ios">
+        <ion-toolbar mode="ios" color="primary">
+          <ion-title>Informations</ion-title>
+          <ion-buttons slot="end">
+            <ion-button mode="ios" (click)="closeModal()">
+              <ion-icon name="close-circle" slot="icon-only" mode="ios"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <p>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Blanditiis
+          modi, maxime eaque reiciendis cumque qui est atque aperiam dolorem
+          necessitatibus commodi adipisci doloribus magni nam eos minima,
+          ratione vero rem!
+          {{dataDetails}}
+        </p>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

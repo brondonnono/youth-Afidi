@@ -1,0 +1,52 @@
+<ion-header mode="ios">
+  <ion-toolbar color="secondary" mode="ios">
+    <ion-buttons slot="start" mode="ios">
+      <ion-button slot="start" mode="ios">
+        <ion-back-button mode="ios"></ion-back-button>
+      </ion-button>
+    </ion-buttons>
+    <ion-title mode="ios">{{translate.dashboard.manageAdmin}}</ion-title>
+    <ion-buttons slot="end" mode="ios">
+      <ion-button mode="ios" color="light" (click)="logout()">
+        <ion-icon mode="ios" slot="icon-only" name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="bg-smallGrey">
+  <ion-searchbar mode="ios" placeholder="Nom d'utilisateur ou nom propre"></ion-searchbar>
+  <ion-list mode="ios">
+    <ion-item mode="ios" *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]">
+      <ion-label mode="ios"> Adamu {{i}} </ion-label>
+      <ion-toggle [enableOnOffLabels]="true" mode="ios" (ionChange)="changeAdminStatus($event)" [checked]="i%2===0"></ion-toggle>
+      <ion-buttons slot="end">
+        <ion-button mode="ios" (click)="presentPopover($event, i.toString())">
+          <ion-icon slot="icon-only" name="ellipsis-vertical" mode="ios" size="sm"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+
+  <ion-modal mode="ios" trigger="modal">
+    <ng-template>
+      <ion-header mode="ios">
+        <ion-toolbar mode="ios" color="primary">
+          <ion-title mode="ios">Détails du compte</ion-title>
+          <ion-buttons mode="ios" slot="end">
+            <ion-button mode="ios" (click)="cancel()">
+              <ion-icon mode="ios" name="close-circle" slot="icon-only"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <ion-item mode="ios" lines="none">
+          <ion-label mode="ios" slot="start">
+            {{currentAccount?.name}}
+          </ion-label>
+        </ion-item>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

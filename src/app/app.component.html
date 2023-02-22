@@ -1,0 +1,72 @@
+<ion-app>
+
+  <ion-split-pane contentId="main-content">
+
+    <ion-menu mode="ios" contentId="main-content" type="overlay">
+      <ion-header mode="ios">
+        <ion-img src="assets/img/logo.png"></ion-img>
+      </ion-header>
+      <ion-content mode="ios" class="ion-padding-top">
+        <ion-list lines="none" mode="ios">
+          <ion-menu-toggle mode="ios" autoHide="false" *ngFor="let p of appPages; let i = index">
+            <ion-item mode="ios" [routerLink]="p.url" routerLinkActive="selected" routerDirection="root" detail="false">
+              <ion-icon mode="ios" slot="start" [name]="p.icon"></ion-icon>
+              <ion-label mode="ios" class="regular small">
+                {{p.title}}
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+
+        <ion-list *ngIf="loggedIn" mode="ios" lines="none">
+          <ion-list-header mode="ios">
+            Mon compte
+          </ion-list-header>
+
+          <ion-menu-toggle autoHide="false" mode="ios">
+            <ion-item mode="ios" routerLink="/profil" routerLinkActive="selected" routerDirection="root" detail="false">
+              <ion-icon mode="ios" slot="start" name="person-outline"></ion-icon>
+              <ion-label>
+                Profil
+              </ion-label>
+            </ion-item>
+            <ion-item mode="ios" routerLink="/home/history" routerLinkActive="selected" routerDirection="root"
+              detail="false">
+              <ion-icon mode="ios" slot="start" name="reader-outline"></ion-icon>
+              <ion-label>
+                Historique
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-item>
+            <ion-icon slot="start" mode="ios" name="moon-outline"></ion-icon>
+            <ion-label mode="ios">
+              Mode sombre
+            </ion-label>
+            <ion-toggle mode="ios" [(ngModel)]="dark"></ion-toggle>
+          </ion-item>
+
+          <ion-menu-toggle mode="ios" autoHide="false">
+            <ion-item button mode="ios" (click)="logout()" detail="false">
+              <ion-icon slot="start" mode="ios" name="log-out"></ion-icon>
+              <ion-label mode="ios">
+                Déconnexion
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+
+      </ion-content>
+      <ion-footer mode="ios" class="center ion-padding">
+        <ion-label mode="ios">
+          <a href="https://www.afidi.net" target="_blank">Afidi © 2023</a>
+        </ion-label>
+      </ion-footer>
+    </ion-menu>
+
+    <ion-router-outlet mode="ios" id="main-content"></ion-router-outlet>
+
+  </ion-split-pane>
+
+</ion-app>

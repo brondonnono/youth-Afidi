@@ -1,0 +1,51 @@
+<ion-content>
+  <ion-header class="ion-no-border">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button color="secondary" autoHide="false"></ion-menu-button>
+      </ion-buttons>
+      <ion-buttons slot="end">
+        <ion-button color="secondary" (click)="presentPopover($event)">
+          <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="about-header">
+    <ion-img src="assets/img/tutorials/cover/1.png"></ion-img>
+  </div>
+
+  <div class="about-info">
+    <h3 class="ion-padding-top ion-padding-start"></h3>
+
+    <p class="ion-padding-start ion-padding-end justify">
+      AFIDI est une organisme de bienfaisance qui aide les enfants à accéder à
+      l'éducation grâce à nos diverses initiatives de programmes de
+      médiathèques. Nous collectons des livres, du matériel scolaire, des
+      jouets...
+    </p>
+
+    <h3 class="ion-padding-top ion-padding-start">{{translate.about.detail}}</h3>
+
+    <ion-list lines="none">
+      <ion-item>
+        <ion-label> {{translate.about.location}} </ion-label>
+        <ion-select class="ft-12" [(ngModel)]="location" [interfaceOptions]="selectOptions" interface="action-sheet">
+          <ion-select-option value="Cameroun">Cameroun</ion-select-option>
+          <ion-select-option value="France">France</ion-select-option>
+          <ion-select-option value="Suisse">Suisse</ion-select-option>
+          <ion-select-option value="Royaume-Uni">Royaume-Uni</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label> {{translate.about.telTitle}} </ion-label>
+        <ion-label class="ft-12 right">675771445/699782173</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label> {{translate.about.cityTitle}} </ion-label>
+        <ion-label class="ft-12 right">Yaoundé/Douala</ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

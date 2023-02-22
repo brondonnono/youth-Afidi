@@ -1,0 +1,27 @@
+ion-menu {
+    ion-content,
+    ion-list,
+    ion-item {
+        --background: var(--ion-color-secondary);
+        background: var(--ion-color-secondary);
+        color: white;
+    }
+
+    ion-lust-header {
+        background: white !important;
+        padding-left: 0;
+        padding-bottom: 10px;
+    }
+}
+
+ion-item.selected {
+    color: var(--ion-color-primary-tint) !important;
+}
+
+ion-footer {
+    background: var(--ion-color-primary) !important;
+    a {
+        text-decoration: none;
+        color: white;
+    }
+}

@@ -1,0 +1,531 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+
+/*scanner active css*/
+body.scanner-active {
+    --background: transparent !important;
+    --ion-background-color: transparent !important;
+    background-color: transparent !important;
+}
+
+/* Personal style */
+
+ion-tab-bar {
+    box-shadow: 0px 1px 12px rgb(0 0 0 / 40%);
+    border-radius: 30px !important;
+    height: 70px;
+    width: 85%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    bottom: 30px;
+    position: relative;
+    margin: 0 auto !important;
+    border-top: none;
+}
+
+.bg-img {
+    padding: 1px;
+    height: 100%;
+    width: 100%;
+    // background-image: url('assets/img/abstract7.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.flex-row {
+    display: flex !important;
+    flex-direction: row !important;
+}
+
+.flex-column {
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.space-between {
+    justify-content: space-between !important;
+}
+
+.space-evently {
+    justify-content: space-evenly !important;
+}
+
+.skeletonCardIonImg {
+    height: 90px;
+}
+
+.toast-success-class,
+.toast-danger-class,
+.toast-info-class,
+.toast-warning-class,
+ion-alert {
+    font-family: codePro-Italic !important;
+}
+
+.toast-success-class {
+    --color: #ffffff;
+    --button-color: #ffffff;
+    --background: var(--ion-color-success);
+    font-size: large;
+}
+
+.toast-warning-class {
+    --color: #ffffff;
+    --button-color: #ffffff;
+    --background: var(--ion-color-warning);
+    font-size: large;
+}
+
+.toast-danger-class {
+    --color: #ffffff;
+    --button-color: #ffffff;
+    --background: var(--ion-color-danger);
+    font-size: large;
+
+    .alert-message.sc-ion-alert-ios {
+        color: unset;
+    }
+}
+
+.toast-info-class {
+    --color: #ffffff;
+    --button-color: #ffffff;
+    --background: var(--ion-color-info);
+    font-size: large;
+}
+
+.notif-badge {
+    margin: -12px 0 0 -10px;
+    font-size: 10px;
+}
+
+ion-app.force-statusbar-padding {
+    --ion-safe-area-top: 5px;
+}
+
+
+// color
+.logout {
+    color: red !important;
+    --color: red !important;
+}
+
+.text-color-grayfit {
+    color: #8B959A !important;
+}
+
+.light {
+    color: gainsboro !important;
+}
+
+.lightGrey,
+.lightGray {
+    color: #fcfcfc !important;
+}
+
+.gray,
+.grey {
+    color: gray !important
+}
+
+.list-header-color {
+    --background: #f1f3f4;
+}
+
+.bg-smallGrey {
+    --background: #fcfcfc !important;
+    background: #fcfcfc !important;
+}
+
+//alignment
+.center {
+    text-align: center !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.justify {
+    text-align: justify !important;
+    align-items: justify !important;
+    justify-content: justify !important;
+}
+
+.right {
+    text-align: right !important;
+    align-items: right !important;
+    justify-content: right !important;
+}
+
+// padding
+
+.pb-10 {
+    padding-bottom: 1rem !important;
+}
+
+.p-10 {
+    padding: 1rem !important;
+}
+
+.pt-10 {
+    padding-top: 1rem !important;
+}
+
+.py-10 {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+}
+
+.px-10 {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+}
+
+.p-20 {
+    padding: 2rem !important;
+}
+
+.pt-20 {
+    padding-top: 2rem !important;
+}
+
+.pt-40 {
+    padding-top: 4rem !important;
+}
+
+.pb-20 {
+    padding-bottom: 2rem !important;
+}
+
+.p-2 {
+    padding: 0.2rem !important;
+}
+
+.py-2 {
+    padding: 0.2rem 0 !important;
+}
+
+.py-7 {
+    padding: 0.7rem 0 !important;
+}
+
+.py-5 {
+    padding: 0.5rem 0 !important;
+}
+
+.pb-5 {
+    padding-bottom: 0.5rem !important;
+}
+
+.pb-1 {
+    padding-bottom: 0.1rem !important;
+}
+
+// size
+.icon_full {
+    font-size: 1500% !important;
+}
+
+.smaller {
+    font-size: smaller !important;
+}
+
+.small {
+    font-size: small !important;
+}
+
+.x-small {
+    font-size: x-small !important;
+}
+
+.x-large {
+    font-size: x-large !important;
+}
+
+/* personal font declaration and import */
+@font-face {
+    font-family: "codePro-Black";
+    src: url('assets/fonts/Source_Code_Pro/SourceCodePro-Black.ttf');
+}
+
+@font-face {
+    font-family: "codePro-BlackItalic";
+    src: url('assets/fonts/Source_Code_Pro/SourceCodePro-BlackItalic.ttf');
+}
+
+@font-face {
+    font-family: "codePro-Bold";
+    src: url('assets/fonts/Source_Code_Pro/SourceCodePro-Bold.ttf');
+}
+
+@font-face {
+    font-family: "codePro-BoldItalic";
+    src: url('assets/fonts/Source_Code_Pro/SourceCodePro-BoldItalic.ttf');
+}
+
+@font-face {
+    font-family: "codePro-ExtraLight";
+    src: url('assets/fonts/Source_Code_Pro/SourceCodePro-ExtraLight.ttf');
+}
+
+@font-face {
+    font-family: "codePro-ExtraLightItalic";
+    src: url('assets/fonts/Source_Code_Pro/SourceCodePro-ExtraLightItalic.ttf');
+}
+
+@font-face {
+    font-family: "codePro-Italic";
+    src: url('assets/fonts/Source_Code_Pro/SourceCodePro-Italic.ttf');
+}
+
+@font-face {
+    font-family: "codePro-Light";
+    src: url('assets/fonts/Source_Code_Pro/SourceCodePro-Light.ttf');
+}
+
+@font-face {
+    font-family: "codePro-LightItalic";
+    src: url('assets/fonts/Source_Code_Pro/SourceCodePro-LightItalic.ttf');
+}
+
+@font-face {
+    font-family: "codePro-Medium";
+    src: url('assets/fonts/Source_Code_Pro/SourceCodePro-Medium.ttf');
+}
+
+@font-face {
+    font-family: "codePro-MediumItalic";
+    src: url('assets/fonts/Source_Code_Pro/SourceCodePro-MediumItalic.ttf');
+}
+
+@font-face {
+    font-family: "codePro-Regular";
+    src: url('assets/fonts/Source_Code_Pro/SourceCodePro-Regular.ttf');
+}
+
+@font-face {
+    font-family: "codePro-SemiBold";
+    src: url('assets/fonts/Source_Code_Pro/SourceCodePro-SemiBold.ttf');
+}
+
+@font-face {
+    font-family: "codePro-SemiBoldItalic";
+    src: url('assets/fonts/Source_Code_Pro/SourceCodePro-SemiBoldItalic.ttf');
+}
+
+.bold {
+    font-family: codePro-Bold !important;
+}
+
+.regular {
+    font-family: codePro-Regular !important;
+}
+
+.lightFont {
+    font-family: codePro-Light !important;
+}
+
+.extraLight {
+    font-family: codePro-ExtraLight !important;
+}
+
+.medium {
+    font-family: codePro-Medium !important;
+}
+
+.italic {
+    font-family: codePro-Italic !important;
+}
+
+.boldItalic {
+    font-family: codePro-BoldItalic !important;
+}
+
+.semiBold {
+    font-family: codePro-SemiBold !important;
+}
+
+.semiBoldItalic {
+    font-family: codePro-SemiBoldItalic !important;
+}
+
+/*personal css, to apply on any place where is needed*/
+.btn-pointer {
+    cursor: pointer;
+}
+
+.ion-padding-left {
+    padding-inline-start: 30px;
+}
+
+.ion-padding-left-26 {
+    padding-inline-start: 26px;
+}
+
+.ion-padding-right {
+    padding-inline-end: 30px;
+}
+
+.ion-text-size-17 {
+    font-size: 17px;
+}
+
+.pub {
+    background: var(--ion-color-warning);
+}
+
+ion-header {
+    border: none;
+
+    ion-toolbar {
+        border: none;
+        color: white;
+    }
+}
+
+ion-header {
+
+    ion-toolbar,
+    ion-title {
+
+        ion-title,
+        ion-label {
+            font-size: 12px;
+        }
+
+        ion-buttons {
+            ion-button {
+                font-size: 12px;
+
+                ion-icon {
+                    font-size: 20px;
+                }
+            }
+        }
+    }
+}
+
+.error-message {
+    color: #d22b32;
+    display: flex;
+    justify-content: center;
+    font-size: smaller;
+}
+
+ion-toolbar,
+ion-toolbar>ion-label,
+ion-toolbar>ion-card-title,
+ion-toolbar>ion-title,
+ion-toolbar>ion-buttons>ion-button {
+    font-family: codePro-BoldItalic !important;
+}
+
+.menu-title,
+.slogan {
+    font-family: codePro-Italic !important;
+}
+
+.menu-title {
+    font-size: 11px !important;
+}
+
+.elem-title {
+    font-family: codePro-Italic !important;
+}
+
+.pswd-title {
+    font-family: codePro-Italic !important;
+    font-size: 11px;
+}
+
+.ft-12 {
+    font-size: 12px !important;
+}
+
+.small-ft-05 {
+    font-size: 0.5rem !important;
+}
+
+ion-card-title,
+ion-card-content,
+ion-card-subtitle,
+ion-note,
+ion-button,
+ion-input {
+    font-family: 'codePro-Regular';
+}
+
+.slogan {
+    font-size: 10px;
+}
+
+// ion-button {
+//     font-style: italic;
+// }
+
+ion-button {
+    height: 40px;
+    box-shadow: none;
+    text-transform: initial;
+    font-size: 15px;
+    letter-spacing: 0;
+    font-weight: 420;
+}
+
+ion-input, ion-select, ion-select-option {
+    font-family: 'codePro-Regular' !important;
+}
+
+.btn-fb {
+    --background: #3b5998 !important;
+}
+
+.btn-tw {
+    --background: #1da1f4 !important;
+}
+
+.btn-go {
+    --background: #ac282b !important;
+}
+
+.btn-ph {
+    --background: #6e7074 !important;
+}
+
+p,
+ion-label {
+    font-family: codePro-Regular;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: codePro-Bold;
+}

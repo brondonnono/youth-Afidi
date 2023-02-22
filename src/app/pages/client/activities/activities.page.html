@@ -1,0 +1,30 @@
+<ion-header mode="ios">
+  <ion-toolbar mode="ios">
+    <ion-title>{{translate.activity.title}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button mode="ios" color="light" autoHide="false"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6" *ngFor="let activity of activities">
+        <ion-card mode="ios">
+          <ion-card-header mode="ios">
+            <ion-img [src]="activity?.coverImg"></ion-img>
+          </ion-card-header>
+          <ion-card-content mode="ios" class="center">
+            <ion-card-subtitle mode="ios" class="small-ft-05 center">
+              {{activity?.title}}
+            </ion-card-subtitle>
+            <ion-label mode="ios" class="x-small">{{activity?.day}}</ion-label>
+            <br>
+            <ion-label mode="ios" class="small-ft-05">{{activity?.startTime}} - {{activity?.endTime}}</ion-label>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,140 @@
+<ion-header mode="ios">
+  <ion-toolbar mode="ios">
+    <ion-title>Mon profil</ion-title>
+    <ion-buttons
+      slot="start"
+      mode="ios"
+      *ngIf="userService.userData.getType === 'client'"
+    >
+      <ion-menu-button
+        color="light"
+        mode="ios"
+        autoHide="false"
+      ></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="ios">
+  <div class="about-header">
+    <div class="about-image" [ngStyle]="{'opacity': '1'}">
+      <div class="logo">
+        <img [src]="userService.userData.img" alt="profil-photo" />
+        <!-- version française -->
+        <div class="information">
+          <label (click)="addPicture()"><u>Modifier</u></label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="about-info">
+    <form class="ion-padding pb-10 justify" [formGroup]="profilForm">
+      <ion-item lines="none" mode="ios">
+        <ion-icon mode="ios" name="person" color="primary"></ion-icon>
+        <ion-input
+          mode="ios"
+          type="text"
+          formControlName="profilNom"
+          [(ngModel)]="userService.personData.name"
+          placeholder="Nom(s)"
+        ></ion-input>
+      </ion-item>
+      <!-- prenom error message -->
+      <div *ngFor="let error of errorMessages.prenom">
+        <ng-container
+          *ngIf="error.lang === 'fr' && profilNom!.hasError(error.type) && (profilNom!.dirty || profilNom!.touched)"
+        >
+          <small class="error-message"
+            ><ion-icon name="alert-circle-outline" slot="start"></ion-icon>
+            {{error.message }}</small
+          >
+        </ng-container>
+      </div>
+      <br />
+      <ion-item lines="none" mode="ios">
+        <ion-icon mode="ios" name="person" color="primary"></ion-icon>
+        <ion-input
+          mode="ios"
+          type="text"
+          formControlName="profilPrenom"
+          [(ngModel)]="userService.personData.surname"
+          placeholder="Prénom(s)"
+        ></ion-input>
+      </ion-item>
+      <!-- prenom error message -->
+      <div *ngFor="let error of errorMessages.prenom">
+        <ng-container
+          *ngIf="error.lang === 'fr' && profilPrenom!.hasError(error.type) && (profilPrenom!.dirty || profilPrenom!.touched)"
+        >
+          <small class="error-message"
+            ><ion-icon name="alert-circle-outline" slot="start"></ion-icon>
+            {{error.message }}</small
+          >
+        </ng-container>
+      </div>
+      <br />
+      <ion-item lines="none" mode="ios">
+        <ion-icon mode="ios" color="primary" name="lock-closed"></ion-icon>
+        <ion-input
+          mode="ios"
+          type="password"
+          formControlName="profilPassword"
+          [(ngModel)]="userService.userData.email"
+          placeholder="Mot de passe"
+        ></ion-input>
+      </ion-item>
+      <!-- Password error message -->
+      <div *ngFor="let error of errorMessages.password">
+        <ng-container
+          *ngIf="error.lang === 'fr' && profilPassword!.hasError(error.type) && (profilPassword!.dirty || profilPassword!.touched)"
+        >
+          <small class="error-message"
+            ><ion-icon
+              mode="ios"
+              name="alert-circle-outline"
+              slot="start"
+            ></ion-icon>
+            {{error.message }}</small
+          >
+        </ng-container>
+      </div>
+      <br />
+      <ion-item lines="none" mode="ios">
+        <ion-icon mode="ios" color="primary" name="lock-closed"></ion-icon>
+        <ion-input
+          mode="ios"
+          type="password"
+          formControlName="profilConfirmPassword"
+          [(ngModel)]="userService.Cpassword"
+          placeholder="Confirmez Mot de passe"
+        ></ion-input>
+      </ion-item>
+      <!-- Password error message -->
+      <div *ngFor="let error of errorMessages.password">
+        <ng-container
+          *ngIf="error.lang === 'fr' && profilConfirmPassword!.hasError(error.type) && (profilConfirmPassword!.dirty || profilConfirmPassword!.touched)"
+        >
+          <small class="error-message"
+            ><ion-icon
+              mode="ios"
+              name="alert-circle-outline"
+              slot="start"
+            ></ion-icon>
+            {{error.message }}</small
+          >
+        </ng-container>
+      </div>
+    </form>
+    <ion-button
+      mode="ios"
+      class="action-button"
+      [disabled]="!profilForm.valid"
+      (click)="valider()"
+      color="success"
+      expand="block"
+    >
+      <ion-icon name="save" slot="start" color="light" mode="ios"></ion-icon>
+      <ion-label mode="ios" color="light">Enregistrer</ion-label>
+    </ion-button>
+  </div>
+</ion-content>

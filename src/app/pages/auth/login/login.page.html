@@ -1,0 +1,116 @@
+<ion-content>
+  <div id="header">
+    <div id="app-bar">
+      <ion-icon mode="ios" name="chevron-back" routerLink="/welcome"></ion-icon>
+      <div id="logo">
+        <img src="https://firebasestorage.googleapis.com/v0/b/afidi-follow-child.appspot.com/o/img%2Flogo-circle.png?alt=media&token=6cbe8be3-de7e-47d2-950b-35858b290378" alt="Afidi" />
+      </div>
+      <div></div>
+    </div>
+
+    <h1>{{translate.login.title}}</h1>
+    <p>{{translate.login.description}}</p>
+  </div>
+  <div class="wrapper">
+    <ion-card mode="ios" class="form-wrapper">
+      <ion-card-content mode="ios">
+        <form [formGroup]="loginForm" (ngSubmit)="login()">
+          <ion-item mode="ios" color="light">
+            <ion-icon mode="ios" name="mail" color="primary"></ion-icon>
+            <ion-input color="dark"
+              mode="ios"
+              type="email"
+              formControlName="loginEmail"
+              [placeholder]="translate.login.email"
+              required
+            ></ion-input>
+          </ion-item>
+          <!-- Email error message -->
+          <div *ngFor="let error of errorMessages.email">
+            <ng-container
+              *ngIf="error.lang === 'fr' && loginEmail!.hasError(error.type) && (loginEmail!.dirty || loginEmail!.touched)"
+            >
+              <small class="error-message">
+                <ion-icon name="alert-circle-outline" slot="start"></ion-icon>
+                {{error.message }}
+              </small>
+            </ng-container>
+          </div>
+          <ion-item mode="ios" color="light">
+            <ion-icon mode="ios" name="lock-closed" color="primary"></ion-icon>
+            <ion-input
+            color="dark"
+              mode="ios"
+              type="{{ getPasswordType() }}"
+              formControlName="loginPassword"
+              [placeholder]="translate.login.pswd"
+              required
+            ></ion-input>
+            <ion-icon
+              slot="end"
+              color="primary"
+              name="eye"
+              *ngIf="!isVisible"
+              (click)="changePasswordVisibility()"
+            ></ion-icon>
+            <ion-icon
+              slot="end"
+              color="primary"
+              name="eye-off"
+              *ngIf="isVisible"
+              (click)="changePasswordVisibility()"
+            ></ion-icon>
+          </ion-item>
+          <!-- Password error message -->
+          <div *ngFor="let error of errorMessages.password">
+            <ng-container
+              *ngIf="error.lang === 'fr' && loginPassword!.hasError(error.type) && (loginPassword!.dirty || loginPassword!.touched)"
+            >
+              <small class="error-message">
+                <ion-icon name="alert-circle-outline" slot="start"></ion-icon>
+                {{error.message}}
+              </small>
+            </ng-container>
+          </div>
+          <ion-button
+            mode="ios"
+            expand="block"
+            type="submit"
+            [disabled]="!loginForm.valid"
+          >
+            {{translate.login.title}}
+          </ion-button>
+          <div class="right pt-10">
+            <h6 mode="ios" slot="end" routerLink="/forgot" class="colorOrange">
+              {{translate.login.forgot}}
+            </h6>
+          </div>
+        </form>
+      </ion-card-content>
+    </ion-card>
+
+    <div class="line-text">
+      <span class="lines"></span>
+      <span class="text">{{translate.welcome.otherOptionTitle}}</span>
+    </div>
+
+    <ion-card class="social-wrapper">
+      <ion-card-content>
+        <div class="socials">
+          <ion-button class="btn-fb">
+            <ion-icon name="logo-facebook"></ion-icon>
+          </ion-button>
+          <ion-button class="btn-tw">
+            <ion-icon name="logo-twitter"></ion-icon>
+          </ion-button>
+          <ion-button class="btn-go">
+            <ion-icon name="logo-google"></ion-icon>
+          </ion-button>
+          <ion-button class="btn-ph">
+            <ion-icon name="call-outline"></ion-icon>
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
