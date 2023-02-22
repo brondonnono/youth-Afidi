@@ -7,6 +7,7 @@ import { SplashScreen } from '@capacitor/splash-screen';
 import { Keys } from './configs/key';
 import { NavigationService } from './services/navigation.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { UtilService } from './services/util.service';
 
 @Component({
   selector: 'app-root',
@@ -169,22 +170,20 @@ export class AppComponent {
     private platform: Platform,
     private authService: AuthService,
     private userService: UserService,
-    private afAuth: AngularFireAuth,
     private storageService: StorageService,
-    private navigationService: NavigationService,
+    private utilService: UtilService,
   ) {
     this.initializeApp();
   }
 
   async getUserLanguage() {
     await this.storageService
-      .getData(Keys.lang)
+      .getObject(Keys.userData)
       .then(
         (res) => {
-          this.lang = res as string;
+          this.lang = res.language as string;
           if (this.lang == null) {
             this.lang = 'fr';
-            this.storageService.deleteData(Keys.lang);
             this.storageService.setData(Keys.lang, this.lang);
           }
           this.userService.changeUserLanguage(this.lang);
@@ -195,7 +194,6 @@ export class AppComponent {
   }
 
   getCorrectMenu() {
-    SplashScreen.hide();
     if (this.lang == 'en') this.appPages = this.appPagesEn;
     else this.appPages = this.appPagesFr;
   }
@@ -203,6 +201,8 @@ export class AppComponent {
   private async initializeApp() {
     SplashScreen.show();
     await this.platform.ready().then(() => {
+      this.getUserLanguage();
+      this.getCorrectMenu();
       SplashScreen.hide();
     });
   }

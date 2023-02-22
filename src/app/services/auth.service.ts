@@ -99,7 +99,7 @@ export class AuthService {
       if (!auth) {
         result = false;
       } else {
-        console.log('onnecté: ' + auth.uid);
+        console.log('connecté: ' + auth.uid);
         result = true;
       }
     });

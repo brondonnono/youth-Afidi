@@ -31,19 +31,10 @@ export class IsconnectedGuard implements CanActivate {
         if (user.type === 'admin' || user.type === 'super' || user.type === 'editor') this.router.navigate(['tabAdmin']);
         else this.router.navigate(['home']);
       });
+      return false;
     }
+    this.storageService.setData('isConnected', result.toString());
     return result;
-    // return this.storageService.getData('isConnected').then(res => {
-    //   if (res === 'true') {
-    //     this.storageService.getObject('userData').then(user => {
-    //       if (user.type === 'admin' || user.type === 'super' || user.type === 'editor') this.router.navigate(['tabAdmin']);
-    //       else this.router.navigate(['home']);
-    //     });
-    //     return false;
-    //   } else {
-    //     return true;
-    //   }
-    // });
   }
 
 }
