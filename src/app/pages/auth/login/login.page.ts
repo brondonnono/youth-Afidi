@@ -1,3 +1,4 @@
+import { PersonService } from './../../../services/person.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { UserService } from './../../../services/user.service';
 import { TranslationService } from './../../../services/translation.service';
@@ -34,7 +35,7 @@ export class LoginPage extends LoginValidator implements OnInit {
     private navigationService: NavigationService,
     public menu: MenuController,
     private translationService: TranslationService,
-    // private firestore: AngularFirestore,
+    private personService: PersonService,
     private nav: NavController
   ) {
     super(formbuilder);
@@ -120,17 +121,18 @@ export class LoginPage extends LoginValidator implements OnInit {
       this.loginPassword?.reset();
       await this.utilService.dismiss();
       this.authservice.login(credentials).then((userCredential) => {
-        // Signed in
         const user = userCredential.user;
-
         this.userService.getUser(user.uid).then(res => {
           // save userData to localStorage
-          this.storageService.setObject('userData', {
-            email: user.email,
-            uid: user.uid,
-            type: res.getType ? res.getType : 'client',
-            lang: res.language
-          });
+          let localUser = {
+            uid: res.getUserId,
+            email: res.email,
+            type: res.getType,
+            language: res.language,
+            userRef: this.userService.userDocRef,
+            personRef: this.personService.personDocRef
+          };
+          this.storageService.setObject('userData', localUser);
           this.storageService.deleteData('user_language');
           this.storageService.setData('user_language', res.language);
           this.storageService.deleteData('isConnected');
@@ -143,13 +145,14 @@ export class LoginPage extends LoginValidator implements OnInit {
         this.utilService.showToast('Echec de connexion', 'danger');
         const errorCode = error.code;
         const errorMessage = error.message;
+        console.log(error);
       });
       await this.utilService.dismiss();
     } catch (error) {
       this.loginForm.reset();
-      this.utilService.showToast('Echec de connexion', 'danger');
+      this.utilService.showToast('Echec de connexion try', 'danger');
       await this.utilService.dismiss();
-      console.log(error);
+      console.log(error, 'try');
     }
   }
   public getPasswordType() {

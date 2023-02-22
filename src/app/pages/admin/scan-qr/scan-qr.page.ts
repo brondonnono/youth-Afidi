@@ -90,9 +90,7 @@ export class ScanQRPage implements OnInit, OnDestroy {
       body.classList.remove('scanner-active');
       if (result?.hasContent) {
         this.scannedResult = result.content;
-        BarcodeScanner.showBackground();
-        body.classList.remove('scanner-active');
-        this.content_visibility = '';
+        this.stopScan();
       }
     } catch (e) {
       console.log(e);

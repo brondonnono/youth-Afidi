@@ -33,6 +33,8 @@ export class UserService {
   userData = {} as User;
   personData = {} as Person;
 
+  userDocRef = 'null';
+
   userDataClean = {} as User;
 
   language: string = 'fr';
@@ -65,9 +67,30 @@ export class UserService {
       this.userData = user;
       console.log(this.userData);
     } else {
-      console.log("No such document!");
+      this.getUserByUserId(id).then(res => {
+        if (res.userData.email != '') {
+          this.userData = res.userData;
+          this.userDocRef = res.userDocRef;
+        }
+      });
     }
     return this.userData;
+  }
+
+  async getUserByUserId(userId: string) {
+    let users = this.getAllUsers();
+    let user = { userData: new User('', ''), userDocRef: '' };
+    const q = query(collection(this.firestore, "user"), where("userId", "==", userId));
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot.size == 0)
+      return user;
+    else {
+      querySnapshot.forEach((doc) => {
+        user.userData = this.initUserFromDoc(doc.data());
+        user.userDocRef = doc.id;
+      });
+      return user;
+    }
   }
 
   async getAllUsers() {
@@ -78,7 +101,7 @@ export class UserService {
     querySnapshot.forEach((doc) => {
       const user = this.initUserFromDoc(doc.data());
       users.push(user);
-      console.log("user ", i+1, ' ', doc.id, " => ", doc.data());
+      console.log("user ", i + 1, ' ', doc.id, " => ", doc.data());
       i++;
     });
     console.log('nbUsers = ', i);

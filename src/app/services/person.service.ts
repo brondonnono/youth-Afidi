@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireList, AngularFireObject, AngularFireDatabase } from '@angular/fire/compat/database';
-import { addDoc, collection, doc, Firestore, getDoc, getDocs, getFirestore } from 'firebase/firestore';
+import { addDoc, collection, doc, Firestore, getDoc, getDocs, getFirestore, query, where } from 'firebase/firestore';
 import { Person } from '../models/person';
 
 @Injectable({
@@ -34,6 +34,8 @@ export class PersonService {
       return newPerson;
     }
   };
+
+  personDocRef = 'null';
   public personData: Person = new Person('', '');
   private firestore: Firestore;
   personListRef: AngularFireList<any> = {} as AngularFireList<any>;
@@ -60,9 +62,29 @@ export class PersonService {
       this.personData = person;
       console.log(this.personData);
     } else {
-      console.log("No such document!");
+      this.getPersonByUserId(id).then(res => {
+        if (res.personData.name != '') {
+          this.personData = res.personData;
+          this.personDocRef = res.personDocRef;
+        }
+      });
     }
     return this.personData;
+  }
+
+  async getPersonByUserId(userId: string) {
+    let person = { personData: new Person('', ''), personDocRef: '' };
+    const q = query(collection(this.firestore, "person"), where("userId", "==", userId));
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot.size == 0)
+      return person;
+    else {
+      querySnapshot.forEach((doc) => {
+        person.personData = this.initPersonFromDoc(doc.data());
+        person.personDocRef = doc.id;
+      });
+      return person;
+    }
   }
 
   // Get List
@@ -74,7 +96,7 @@ export class PersonService {
     querySnapshot.forEach((doc) => {
       const person = this.initPersonFromDoc(doc.data());
       persons.push(person);
-      console.log("person ", i+1, ' ', doc.id, " => ", doc.data());
+      console.log("person ", i + 1, ' ', doc.id, " => ", doc.data());
       i++;
     });
     console.log('nbPersons = ', i);
