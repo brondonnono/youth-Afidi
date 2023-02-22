@@ -104,8 +104,8 @@ export class LoginPage extends LoginValidator implements OnInit {
   // }
 
   redirecto(user: User) {
-    if (user.email === 'mac@mac.cm') this.navigationService.goto('/tabAdmin');
-    // if (user.getType === 'admin') this.navigationService.goto('/tabAdmin');
+    // if (user.email === 'mac@mac.cm') this.navigationService.goto('/tabAdmin');
+    if (user.getType == 'admin') this.navigationService.goto('/tabAdmin');
     else this.navigationService.goto('/home');
   }
 

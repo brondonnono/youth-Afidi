@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -10,6 +11,7 @@ export class IsconnectedGuard implements CanActivate {
   constructor(
     private router: Router,
     private storageService: StorageService,
+    private authService: AuthService,
   ) { }
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -18,17 +20,30 @@ export class IsconnectedGuard implements CanActivate {
   }
 
   async checkIsconnected() {
-    return this.storageService.getData('isConnected').then(res => {
-      if (res === 'true') {
-        this.storageService.getObject('userData').then(user => {
-          if (user.type === 'admin' || user.type === 'super' || user.type === 'editor') this.router.navigate(['tabAdmin']);
-          else this.router.navigate(['tabAdmin']);
-        });
-        return false;
-      } else {
-        return true;
-      }
-    });
+    let result: boolean = false;
+    this.authService.isLoggedIn().then((res: boolean) => {
+      result = res;
+    })
+      .catch(error => console.log(error));
+
+    if (result) {
+      this.storageService.getObject('userData').then(user => {
+        if (user.type === 'admin' || user.type === 'super' || user.type === 'editor') this.router.navigate(['tabAdmin']);
+        else this.router.navigate(['home']);
+      });
+    }
+    return result;
+    // return this.storageService.getData('isConnected').then(res => {
+    //   if (res === 'true') {
+    //     this.storageService.getObject('userData').then(user => {
+    //       if (user.type === 'admin' || user.type === 'super' || user.type === 'editor') this.router.navigate(['tabAdmin']);
+    //       else this.router.navigate(['home']);
+    //     });
+    //     return false;
+    //   } else {
+    //     return true;
+    //   }
+    // });
   }
 
 }

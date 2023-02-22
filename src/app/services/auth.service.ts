@@ -70,8 +70,6 @@ export class AuthService {
     return signOut(this.auth);
   }
 
-  checkUserType() { }
-
   deleteUser() {
     return this.auth.currentUser!.delete();
   }
@@ -90,16 +88,22 @@ export class AuthService {
     return null;
   }
 
-  isLoggedIn() {
-    this.afAuth.authState.subscribe(auth => {
+  redirecto(userType: string) {
+    if (userType == 'admin') this.router.navigate(['/tabAdmin']);
+    else this.router.navigate(['/home']);
+  }
+
+ async isLoggedIn() {
+    let result: boolean =  false;
+    await this.afAuth.authState.subscribe(auth => {
       if (!auth) {
-        console.log('non connecté');
-        // this.connected = false;
+        result = false;
       } else {
         console.log('onnecté: ' + auth.uid);
-        // this.connected = true;
+        result = true;
       }
     });
+    return result;
   }
 
 }

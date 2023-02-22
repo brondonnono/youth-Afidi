@@ -11,22 +11,22 @@ const routes: Routes = [
   {
     path: 'welcome',
     loadChildren: () => import('./pages/welcome/welcome.module').then(m => m.WelcomePageModule),
-    canActivate: [IsconnectedGuard]
+   // canActivate: [IsconnectedGuard]
   },
   {
     path: 'login',
     loadChildren: () => import('./pages/auth/login/login.module').then(m => m.LoginPageModule),
-    canActivate: [IsconnectedGuard]
+   // canActivate: [IsconnectedGuard]
   },
   {
     path: 'register',
     loadChildren: () => import('./pages/auth/register/register.module').then(m => m.RegisterPageModule),
-    canActivate: [IsconnectedGuard]
+  //  canActivate: [IsconnectedGuard]
   },
   {
     path: 'forgot',
     loadChildren: () => import('./pages/auth/forgot/forgot.module').then(m => m.ForgotPageModule),
-    canActivate: [IsconnectedGuard]
+  //  canActivate: [IsconnectedGuard]
   },
   {
     path: 'home',

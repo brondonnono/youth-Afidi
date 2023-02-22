@@ -75,37 +75,67 @@ export class RegisterPage extends RegisterValidator implements OnInit {
   //   return lang;
   // }
 
+  // async register() {
+  //   let errMsg = { title: '', msg: '' };
+  //   await this.utilService.showLoader(this.translate.util.loading);
+  //   const loginData = { email: this.registerEmail?.value, password: this.registerPassword?.value };
+  //   await this.authService.register(loginData).then((userCredential) => {
+  //     const user = userCredential.user;
+  //     let userData = new User(loginData.email as string, this.registerLang?.value as string);
+  //     userData.setUserId = user.uid;
+  //     this.userService.createUser(userData).then(res => {
+  //       let person = new Person(this.registerName?.value as string, this.registerSurname?.value as string);
+  //       person.setUserId = userData.getUserId;
+  //       person.setPersonId = userData.getUserId;
+  //       person.setHaveAccount = true;
+  //       person.setHavePhone = this.registerTel?.valid as boolean;
+  //       if (person.getHavePhone) person.setNumTel = this.registerTel?.value as string;
+  //       this.personService.createPerson(person).then(result => {
+  //         this.registerForm.reset();
+  //       })
+  //         .catch(error => console.log(error));
+  //     })
+  //       .catch(error => console.log(error));
+  //     this.utilService.showToast('Opération réussie', 'success');
+  //     this.navigationService.goto('/login');
+  //   })
+  //     .catch((error) => {
+  //       const errorCode = error.code;
+  //       console.log(error);
+  //       const errorMessage = error.message;
+  //       this.utilService.showAlert('Erreur', 'Une erreur est survenue, Vérifiez votre connexion internet puis réésayez!');
+  //     });
+  //   await this.utilService.dismiss();
+  // }
+
   async register() {
-    let errMsg = { title: '', msg: '' };
-    await this.utilService.showLoader(this.translate.util.loading);
-    const loginData = { email: this.registerEmail?.value, password: this.registerPassword?.value };
-    await this.authService.register(loginData).then((userCredential) => {
-      // Signed in 
-      const user = userCredential.user;
+    let loginData = { email: this.registerEmail?.value, password: this.registerPassword?.value };
+    console.log(loginData);
+    this.authService.register(loginData).then(res => {
+      const user = res.user;
+      console.log(user.uid);
       let userData = new User(loginData.email as string, this.registerLang?.value as string);
       userData.setUserId = user.uid;
-      this.userService.createUser(userData).then(res => {
-        let person = new Person(this.registerName?.value as string, this.registerSurname?.value as string);
-        person.setUserId = userData.getUserId;
-        person.setPersonId = userData.getUserId;
-        person.setHaveAccount = true;
-        person.setHavePhone = this.registerTel?.valid as boolean;
-        if (person.getHavePhone) person.setNumTel = this.registerTel?.value as string;
-        this.personService.createPerson(person).then(result => {
-          this.registerForm.reset();
-        })
-          .catch(error => console.log(error));
-      })
-        .catch(error => console.log(error));
+      console.log(userData);
+      this.userService.testCreate(userData);
+      this.userService.getAllUsers();
+      // this.userService.createUser(userData).then(res => {
+      //   let person = new Person(this.registerName?.value as string, this.registerSurname?.value as string);
+      //   person.setUserId = userData.getUserId;
+      //   person.setPersonId = userData.getUserId;
+      //   person.setHaveAccount = true;
+      //   person.setHavePhone = this.registerTel?.valid as boolean;
+      //   if (person.getHavePhone) person.setNumTel = this.registerTel?.value as string;
+      //   this.personService.createPerson(person).then(result => {
+      //     this.registerForm.reset();
+      //   })
+      //     .catch(error => console.log(error, 'create person'));
+      // })
+      //   .catch(error => console.log(error, 'create user'));
       this.utilService.showToast('Opération réussie', 'success');
-      this.navigationService.goto('/login');
+      // this.navigationService.goto('/login');
     })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        this.utilService.showAlert('Erreur', 'Une erreur est survenue, Vérifiez votre connexion internet puis réésayez!');
-      });
-    await this.utilService.dismiss();
+      .catch(error => console.log(error));
   }
 
   public getPasswordType() {

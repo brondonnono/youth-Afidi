@@ -212,7 +212,7 @@ export class AppComponent {
         } else {
           this.userService.getUser(auth.uid).valueChanges().subscribe(res => {
             console.log(res, ' result');
-            this.navigationService.gotoWithUrl('/tabAdmin');
+            this.authService.redirecto(res.getType);
             console.log('Connecté: ' + auth.uid);
             this.loggedIn = true;
             this.storageService.setData('isConnected', 'true');
