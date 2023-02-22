@@ -123,12 +123,12 @@ export class LoginPage extends LoginValidator implements OnInit {
         // Signed in
         const user = userCredential.user;
 
-        this.userService.getUser(user.uid).valueChanges().subscribe(res => {
+        this.userService.getUser(user.uid).then(res => {
           // save userData to localStorage
           this.storageService.setObject('userData', {
             email: user.email,
             uid: user.uid,
-            type: res.type,
+            type: res.getType ? res.getType : 'client',
             lang: res.language
           });
           this.storageService.deleteData('user_language');

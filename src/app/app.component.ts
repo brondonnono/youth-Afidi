@@ -203,24 +203,6 @@ export class AppComponent {
   private async initializeApp() {
     SplashScreen.show();
     await this.platform.ready().then(() => {
-      this.afAuth.authState.subscribe(auth => {
-        if (!auth) {
-          console.log('non connecté');
-          this.navigationService.gotoWithUrl('/welcome');
-          this.loggedIn = false;
-          this.storageService.setData('isConnected', 'false');
-        } else {
-          this.userService.getUser(auth.uid).valueChanges().subscribe(res => {
-            console.log(res, ' result');
-            this.authService.redirecto(res.getType);
-            console.log('Connecté: ' + auth.uid);
-            this.loggedIn = true;
-            this.storageService.setData('isConnected', 'true');
-            this.getUserLanguage();
-            this.getCorrectMenu();
-          });
-        }
-      });
       SplashScreen.hide();
     });
   }

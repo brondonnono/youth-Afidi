@@ -113,11 +113,24 @@ export class RegisterPage extends RegisterValidator implements OnInit {
     console.log(loginData);
     this.authService.register(loginData).then(res => {
       const user = res.user;
+      // if(!user || user == undefined) {
+      //   this.utilService.showAlert('Erreur', 'Une erreur est survenue, Vérifiez votre connexion internet puis réésayez!');
+      //   return;
+      // }
       console.log(user.uid);
       let userData = new User(loginData.email as string, this.registerLang?.value as string);
       userData.setUserId = user.uid;
       console.log(userData);
-      this.userService.testCreate(userData);
+      this.userService.createUser(userData).then(res => {
+        let localUser = {
+          uid: userData.getUserId,
+          email: userData.email,
+          type: userData.getType,
+          language: userData.language,
+          userRef: res
+        };
+        this.storageService.setObject('userData', localUser);
+      })
       this.userService.getAllUsers();
       // this.userService.createUser(userData).then(res => {
       //   let person = new Person(this.registerName?.value as string, this.registerSurname?.value as string);

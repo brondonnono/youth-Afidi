@@ -3,7 +3,7 @@ import { Person } from '../models/person';
 import { User } from '../models/user';
 import { AngularFireList, AngularFireObject, AngularFireDatabase } from '@angular/fire/compat/database';
 import { doc, setDoc, getFirestore, getDoc, getDocs, collection } from '@angular/fire/firestore';
-import { Firestore, query, where } from 'firebase/firestore';
+import { addDoc, Firestore, query, where } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +39,7 @@ export class UserService {
 
   Cpassword: string = '';
 
-  firestore: Firestore;
+  private firestore: Firestore;
   userListRef: AngularFireList<any> = {} as AngularFireList<any>;
   userRef: AngularFireObject<any> = {} as AngularFireObject<any>;
 
@@ -48,36 +48,40 @@ export class UserService {
     this.firestore = getFirestore();
   }
 
-  // Create
-  createUser(user: User) {
-    return this.userListRef.push(user);
-  }
-
-  async testCreate(user: User) {
-    const ref = doc(this.firestore, "user", user.getUserId).withConverter(this.userConverter);
-    await setDoc(ref, user);
+  // Create User
+  async createUser(user: User) {
+    const ref = collection(this.firestore, "user").withConverter(this.userConverter);
+    const docRef = await addDoc(ref, user);
+    return docRef.id;
   }
 
 
-  async testGet(user: User) {
-    const ref = doc(this.firestore, "user", user.getUserId).withConverter(this.userConverter);
+  // Get Single User
+  async getUser(id: string) {
+    const ref = doc(this.firestore, "user", id).withConverter(this.userConverter);
     const docSnap = await getDoc(ref);
     if (docSnap.exists()) {
-      const userData = docSnap.data();
-      console.log(userData);
+      const user = docSnap.data();
+      this.userData = user;
+      console.log(this.userData);
     } else {
       console.log("No such document!");
     }
+    return this.userData;
   }
 
   async getAllUsers() {
     let users: User[] = [];
+    let i = 0;
     const querySnapshot = await getDocs(collection(this.firestore, "user"));
+    console.log(querySnapshot.size, ' documents found(s)');
     querySnapshot.forEach((doc) => {
       const user = this.initUserFromDoc(doc.data());
       users.push(user);
-      console.log(doc.id, " => ", doc.data());
+      console.log("user ", i+1, ' ', doc.id, " => ", doc.data());
+      i++;
     });
+    console.log('nbUsers = ', i);
     return users;
   }
 
@@ -98,12 +102,6 @@ export class UserService {
     newUser.setUserId = doc.userId;
     newUser.setType = doc.type;
     return newUser;
-  }
-
-  // Get Single
-  getUser(id: string) {
-    this.userRef = this.db.object('/user/' + id);
-    return this.userRef;
   }
 
   // Get List
