@@ -6,7 +6,7 @@ export class Person {
   public city: string = '';
   public quater: string = '';
   private havePhone: boolean = false;
-  private numTel!: string;
+  private numTel: string = '';
   private haveAccount: boolean = false;
   private userId: string = '';
 

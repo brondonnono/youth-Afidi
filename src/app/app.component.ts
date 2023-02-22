@@ -181,12 +181,14 @@ export class AppComponent {
       .getObject(Keys.userData)
       .then(
         (res) => {
-          this.lang = res.language as string;
-          if (this.lang == null) {
-            this.lang = 'fr';
-            this.storageService.setData(Keys.lang, this.lang);
+          if (res) {
+            this.lang = res.language as string;
+            if (this.lang == null) {
+              this.lang = 'fr';
+              this.storageService.setData(Keys.lang, this.lang);
+            }
+            this.userService.changeUserLanguage(this.lang);
           }
-          this.userService.changeUserLanguage(this.lang);
         },
         (reject) => console.log(reject)
       )

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireList, AngularFireObject, AngularFireDatabase } from '@angular/fire/compat/database';
-import { doc, Firestore, getFirestore, setDoc } from 'firebase/firestore';
+import { addDoc, collection, Firestore, getFirestore } from 'firebase/firestore';
 import { Person } from '../models/person';
 
 @Injectable({
@@ -14,7 +14,7 @@ export class PersonService {
         personId: person.getPersonId,
         name: person.name,
         surname: person.surname,
-        numtel: person.getNumTel,
+        numTel: person.getNumTel,
         havePhone: person.getHavePhone,
         haveAccount: person.getHaveAccount,
         userId: person.getUserId,
@@ -44,8 +44,10 @@ export class PersonService {
 
   // Create
   async createPerson(person: Person) {
-    const ref = doc(this.firestore, "person", person.getPersonId).withConverter(this.personConverter);
-    await setDoc(ref, person);
+    console.log('person to create => => ', person);
+    const ref = collection(this.firestore, "person").withConverter(this.personConverter);
+    const docRef = await addDoc(ref, person);
+    return docRef.id;
   }
 
   // Get Single
