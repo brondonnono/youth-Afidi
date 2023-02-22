@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireList, AngularFireObject, AngularFireDatabase } from '@angular/fire/compat/database';
-import { addDoc, collection, Firestore, getFirestore } from 'firebase/firestore';
+import { addDoc, collection, doc, Firestore, getDoc, getDocs, getFirestore } from 'firebase/firestore';
 import { Person } from '../models/person';
 
 @Injectable({
@@ -17,7 +17,7 @@ export class PersonService {
         numTel: person.getNumTel,
         havePhone: person.getHavePhone,
         haveAccount: person.getHaveAccount,
-        userId: person.getUserId,
+        userId: person.getPersonId,
         city: person.city,
         country: person.country,
         quater: person.quater
@@ -27,18 +27,19 @@ export class PersonService {
       const data = snapshot.data(options);
       let newPerson = new Person(data.name, data.surname, data.country, data.city, data.quater);
       newPerson.setPersonId = data.personId;
-      newPerson.setUserId = data.userId;
+      newPerson.setPersonId = data.personId;
       newPerson.setHaveAccount = data.haveAccount;
       newPerson.setHavePhone = data.havePhone;
       newPerson.setNumTel = data.setNumtel;
       return newPerson;
     }
   };
+  public personData: Person = new Person('', '');
   private firestore: Firestore;
   personListRef: AngularFireList<any> = {} as AngularFireList<any>;
   personRef: AngularFireObject<any> = {} as AngularFireObject<any>;
 
-  constructor(private db: AngularFireDatabase) { 
+  constructor(private db: AngularFireDatabase) {
     this.firestore = getFirestore();
   }
 
@@ -51,15 +52,43 @@ export class PersonService {
   }
 
   // Get Single
-  getPerson(id: string) {
-    this.personRef = this.db.object('/person/' + id);
-    return this.personRef;
+  async getPerson(id: string) {
+    const ref = doc(this.firestore, "person", id).withConverter(this.personConverter);
+    const docSnap = await getDoc(ref);
+    if (docSnap.exists()) {
+      const person = docSnap.data();
+      this.personData = person;
+      console.log(this.personData);
+    } else {
+      console.log("No such document!");
+    }
+    return this.personData;
   }
 
   // Get List
-  getPersonList() {
-    this.personListRef = this.db.list('/person');
-    return this.personListRef;
+  async getPersonList() {
+    let persons: Person[] = [];
+    let i = 0;
+    const querySnapshot = await getDocs(collection(this.firestore, "person"));
+    console.log(querySnapshot.size, ' documents found(s)');
+    querySnapshot.forEach((doc) => {
+      const person = this.initPersonFromDoc(doc.data());
+      persons.push(person);
+      console.log("person ", i+1, ' ', doc.id, " => ", doc.data());
+      i++;
+    });
+    console.log('nbPersons = ', i);
+    return persons;
+  }
+
+  initPersonFromDoc(doc: any) {
+    let newPerson = new Person(doc.name, doc.surname, doc.country, doc.city, doc.quater);
+    newPerson.setPersonId = doc.personId;
+    newPerson.setHaveAccount = doc.haveAccount;
+    newPerson.setNumTel = doc.numTel;
+    newPerson.setUserId = doc.userId;
+    newPerson.setHavePhone = doc.havePhone;
+    return newPerson;
   }
 
   // Update
