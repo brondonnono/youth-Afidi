@@ -39,7 +39,7 @@ export class ManageUsersPage implements OnInit {
   
   logout() {
     this.authService.logout();
-    // this.navigationService.goto('/login');
+    this.navigationService.goto('/login');
   }
   
   showDetails(id: string) {
